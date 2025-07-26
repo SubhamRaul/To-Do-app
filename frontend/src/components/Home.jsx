@@ -7,10 +7,12 @@ function Home() {
     const [error , setError] = useState(null);
     const [loading , setLoading] = useState(false);
 
+    
+
     useEffect(() => {
         const fetchTodos = async () => {
+            setLoading(true);
             try {
-                setLoading(true);
                 const response = await axios.get("http://localhost:3000/todo/fetch",{
                     withCredentials: true,
                     headers:{
@@ -27,7 +29,7 @@ function Home() {
                 setLoading(false);
             }
         }
-
+        
         fetchTodos();
     } , [])
 
@@ -36,15 +38,19 @@ function Home() {
     const todoCreate = async () => {
         if(!newtodo) return;
         try {
-            const response = await axios.post("http://localhost:3000/todo/create",{
+            const response = await axios.post("http://localhost:3000/todo/create",
+            {
                 text:newtodo,
                 completed:false,
-            },{
+            },
+            {
                 withCredentials: true,
             });
-            console.log(response.data.newtodo);
+            console.log((response.data.newtodo));
 
-            setTodos([...todos , response.data.newtodo]);
+            if (response.data.newtodo) {
+                setTodos([...todos, response.data.newtodo]);
+            }
             setNewTodo("");
         } catch (error) {
             setError("failed to create todo");
@@ -78,8 +84,7 @@ function Home() {
             setError("failed to delete todo");
         }
     }
-
-    const remainingTodo = todos.filter((todo)=>!todo.completed).length;
+    const remainingTodo = todos.filter((todo)=>( todo && !todo.completed)).length;
 
   return (
     <div className=' my-10 bg-gray-100 max-w-lg lg:max-w-xl rounded-lg shadow-lg mx-8 sm:mx-auto p-6 '>
@@ -91,7 +96,7 @@ function Home() {
             onKeyDown={(e) => e.key === "Enter" && todoCreate()}
             className='flex-grow bg-white rounded-l-md p-2 focus:outline-none'
             />
-            <button className='bg-blue-500 rounded-r-md text-white px-4 py-2 hover:bg-blue-900 duration-200' onClick={()=>{todoCreate()}}>Add</button>
+            <button className='bg-blue-500 rounded-r-md text-white px-4 py-2 hover:bg-blue-900 duration-200' onClick={todoCreate}>Add</button>
         </div>
 
         {

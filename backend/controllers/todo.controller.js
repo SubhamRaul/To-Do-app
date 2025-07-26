@@ -7,10 +7,10 @@ const createTodo = async (req, res) => {
     })
 
     try {
-        const newTodo = await todo.save();
-        console.log(newTodo);
+        const newtodo = await todo.save();
+        console.log(newtodo);
         
-        res.status(201).json({message:"Todo Created successfully" , newTodo});
+        res.status(201).json({ message: "Todo created successfully", newtodo: newtodo });
     } catch (error) {
         console.log("Error creating todo:", error);
         res.status(500).json({ message: "Error creating todo" });
