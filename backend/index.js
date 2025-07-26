@@ -4,6 +4,7 @@ import connectDB from './db/index.js';
 import todoroute from './routes/todo.route.js';
 import userRoute from './routes/user.route.js';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const app = express()
 const port = 3000
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 //middleware
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors({
   origin: process.env.FRONTEND_URL, // Adjust this to your frontend URL
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
