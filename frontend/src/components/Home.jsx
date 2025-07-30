@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import toast from 'react-hot-toast';
+import { Navigate } from 'react-router-dom';
 
 function Home() {
 
@@ -86,6 +88,26 @@ function Home() {
     }
     const remainingTodo = todos.filter((todo)=>( todo && !todo.completed)).length;
 
+
+    const logout = async ()=>{
+        try {
+            await axios.get("http://localhost:3000/user/logout");
+            toast.success("Logged out successfully");
+            <Navigate to = {"/login"}/>
+            localStorage.removeItem("jwt");
+            
+        } catch (error) {
+            toast.error("Error logging out");
+        }
+    }
+
+
+
+
+
+
+
+
   return (
     <div className=' my-10 bg-gray-100 max-w-lg lg:max-w-xl rounded-lg shadow-lg mx-8 sm:mx-auto p-6 '>
         <h1 className='text-2xl font-semibold text-center'>Todo App</h1>
@@ -124,7 +146,7 @@ function Home() {
 
         <p className='text-center text-sm text-gray-700'>{remainingTodo} remaining todos</p>
 
-        <button className='mt-6 px-4 py-2 bg-red-500 rounded-md text-white hover:bg-red-800 duration-200 mx-auto block'>Logout</button>
+        <button onClick={()=>logout()} className='mt-6 px-4 py-2 bg-red-500 rounded-md text-white hover:bg-red-800 duration-200 mx-auto block'>Logout</button>
     </div>
 
 

@@ -4,6 +4,7 @@ const createTodo = async (req, res) => {
     const todo = new Todo({
         text: req.body.text,
         completed: req.body.completed || false,
+        user: req.user._id // Associate todo with the authenticated user
     })
 
     try {
@@ -20,7 +21,7 @@ const createTodo = async (req, res) => {
 
 const getTodos = async (req, res) => {
     try {
-        const todos = await Todo.find();
+        const todos = await Todo.find({user: req.user._id}) // Fetch todos for the authenticated user;
         if(!todos || todos.length === 0) {
             return res.status(404).json({ message: "No todos found" });
         }

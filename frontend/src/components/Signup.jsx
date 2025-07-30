@@ -17,29 +17,29 @@ function Signup() {
             return;
         }
         try {
-            const {data} = await axios.post("http://localhost:3000/user/signup", {
-                username,
-                email,
-                password
-            },{
-                withCredentials: true,
-                headers: {
-                    "Content-Type": "application/json",
-                }
+        const {data} = await axios.post("http://localhost:3000/user/signup", {
+            username,
+            email,
+            password
+        },{
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json",
             }
+        }
         );
         console.log(data);
         toast.success(data.message || "User registered successfully");
-        localStorage.setItem("jwt", data.token);
+        navigateTo("/login");
+        localStorage.setItem("jwt", data.user.token);
         
         setUsername("");
         setEmail("");
         setPassword("");
-        navigateTo("/login");
         
         } catch (error) {
             console.log("Error registering user:", error);
-            toast.error(error.response.data.error || "Failed to register user");
+            toast.error(error.response.data.errors || "Failed to register user");
         }
     }
 

@@ -61,7 +61,7 @@ const loginUser = async (req, res) => {
         }
         const token = await genarateTokenAndsaveinCookies(user._id , res);
 
-        res.status(200).json({ message: "User logged in successfully", user});
+        res.status(200).json({ message: "User logged in successfully!!!", user});
     } catch (error) {
         console.error("Error during user login:", error);
         res.status(500).json({ message: "Error logging user" , error: error.message });
