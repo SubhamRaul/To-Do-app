@@ -26,11 +26,11 @@ function login() {
                 }
             }
         );
-        console.log(data.user);
+        //console.log(data);
         toast.success(data.message || "User logged in successfully");
-        navigateTo("/");
-        localStorage.setItem("jwt", data.user.token);
         
+        localStorage.setItem("jwt", data.token);
+        navigateTo("/");
         setEmail("");
         setPassword("");
         

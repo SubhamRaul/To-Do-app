@@ -12,10 +12,6 @@ function Signup() {
 
     const Userregister = async (e) => {
         e.preventDefault();
-        if (!username || !email || !password) {
-            alert("Please fill all fields");
-            return;
-        }
         try {
         const {data} = await axios.post("http://localhost:3000/user/signup", {
             username,
@@ -30,16 +26,16 @@ function Signup() {
         );
         console.log(data);
         toast.success(data.message || "User registered successfully");
-        navigateTo("/login");
-        localStorage.setItem("jwt", data.user.token);
         
+        localStorage.setItem("jwt", data.token);
+        navigateTo("/login");
         setUsername("");
         setEmail("");
         setPassword("");
         
         } catch (error) {
             console.log("Error registering user:", error);
-            toast.error(error.response.data.errors || "Failed to register user");
+            toast.error(error.response.data.errors || "User Registration Failed");
         }
     }
 

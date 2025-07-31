@@ -20,6 +20,7 @@ const registerUser = async (req, res) => {
     if (!email || !username || !password) {
       return res.status(400).json({ errors: "All fields are required" });
     }
+    
     const validation = userSchema.safeParse({ email, username, password });
     if (!validation.success) {
       const errorMessage = validation.error.errors.map((err) => err.message);

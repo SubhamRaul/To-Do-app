@@ -22,9 +22,7 @@ const createTodo = async (req, res) => {
 const getTodos = async (req, res) => {
     try {
         const todos = await Todo.find({user: req.user._id}) // Fetch todos for the authenticated user;
-        if(!todos || todos.length === 0) {
-            return res.status(404).json({ message: "No todos found" });
-        }
+        
         res.status(201).json({message:"Todo fetched successfully",todos});
         
     } catch (error) {
