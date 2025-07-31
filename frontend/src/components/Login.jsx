@@ -16,7 +16,7 @@ function login() {
             return;
         }
         try {
-            const {data} = await axios.post("http://localhost:3000/user/login", {
+            const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URI}/user/login`, {
                 email,
                 password
             },{

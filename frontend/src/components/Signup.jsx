@@ -13,7 +13,7 @@ function Signup() {
     const Userregister = async (e) => {
         e.preventDefault();
         try {
-        const {data} = await axios.post("http://localhost:3000/user/signup", {
+        const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URI}/user/signup`, {
             username,
             email,
             password

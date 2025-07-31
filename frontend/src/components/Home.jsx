@@ -15,7 +15,7 @@ function Home() {
         const fetchTodos = async () => {
             setLoading(true);
             try {
-                const response = await axios.get("http://localhost:3000/todo/fetch",{
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/todo/fetch`,{
                     withCredentials: true,
                     headers:{
                         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ function Home() {
     const todoCreate = async () => {
         if(!newtodo) return;
         try {
-            const response = await axios.post("http://localhost:3000/todo/create",
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URI}/todo/create`,
             {
                 text:newtodo,
                 completed:false,
@@ -63,7 +63,7 @@ function Home() {
     const todoStatus = async (id)=>{
         const todo = todos.find((todo) => todo._id === id);
         try {
-            const response = await axios.put(`http://localhost:3000/todo/update/${id}`,{
+            const response = await axios.put(`${import.meta.env.VITE_BACKEND_URI}/todo/update/${id}`,{
                 ...todo,
                 completed: !todo.completed,
             },{
@@ -78,7 +78,7 @@ function Home() {
 
     const todoDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/todo/delete/${id}`,{
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URI}/todo/delete/${id}`,{
                 withCredentials:true,
             });
             setTodos(todos.filter((todo) => todo._id !== id));
@@ -91,7 +91,7 @@ function Home() {
     const navigateTo = useNavigate();
     const logout = async ()=>{
         try {
-            await axios.get("http://localhost:3000/user/logout",{withCredentials:true});
+            await axios.get(`${import.meta.env.VITE_BACKEND_URI}/user/logout`,{withCredentials:true});
             toast.success("Logged out successfully");
             navigateTo("/login");
             localStorage.removeItem("jwt");
