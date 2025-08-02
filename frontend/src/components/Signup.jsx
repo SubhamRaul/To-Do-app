@@ -26,9 +26,9 @@ function Signup() {
         );
         console.log(data);
         toast.success(data.message || "User registered successfully");
-        
-        localStorage.setItem("jwt", data.token);
         navigateTo("/login");
+        localStorage.setItem("jwt", data.user.token);
+        
         setUsername("");
         setEmail("");
         setPassword("");

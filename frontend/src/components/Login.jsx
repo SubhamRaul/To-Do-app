@@ -28,9 +28,9 @@ function login() {
         );
         //console.log(data);
         toast.success(data.message || "User logged in successfully");
-        
-        localStorage.setItem("jwt", data.token);
         navigateTo("/");
+        localStorage.setItem("jwt", data.user.token);
+        
         setEmail("");
         setPassword("");
         
